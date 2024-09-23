@@ -1,8 +1,11 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { UserInterface } from "../types/user.interface";
+import { UtilsService } from "./utils.service";
 
 @Injectable()
 export class UsersService {
+  utilsService = inject(UtilsService);
+
   users: UserInterface[] = [];
 
   addUser(user: UserInterface): void {
@@ -12,5 +15,9 @@ export class UsersService {
   removeUser(userId: string): void {
     const updatedUsers = this.users.filter(user => userId !== user.id);
     this.users = updatedUsers;
+  }
+
+  getUsername(): string[] {
+    return this.utilsService.pluck(this.users, 'name');
   }
 }
