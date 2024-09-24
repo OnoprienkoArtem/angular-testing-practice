@@ -29,7 +29,7 @@ describe('ApiService', () => {
 
   describe('getTegs', () => {
     it('should get tegs', () => {
-      const request = [
+      const response = [
         { id: '1', name: 'foo' },
       ];
       let tags: TagInterface[] | undefined;
@@ -38,15 +38,24 @@ describe('ApiService', () => {
       });
 
       const req = httpTestingController.expectOne('http://localhost:3004/tags');
-      req.flush(request);
+      req.flush(response);
 
-      expect(tags).toEqual(request);
+      expect(tags).toEqual(response);
     });
   });
 
   describe('createTag', () => {
-    it('should create teg', () => {
+    it('should create a teg', () => {
+      const response = { id: '1', name: 'foo' };
+      let tag: TagInterface | undefined;
+      apiService.createTag('foo').subscribe(response => {
+        tag = response;
+      });
 
+      const req = httpTestingController.expectOne('http://localhost:3004/tags');
+      req.flush(response);
+
+      expect(tag).toEqual(response);
     });
   });
 
