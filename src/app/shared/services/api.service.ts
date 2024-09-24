@@ -7,7 +7,7 @@ import { TagInterface } from "../types/tag.interface";
 export class ApiService {
   httpClient = inject(HttpClient);
 
-  apiUrl = 'http://localhost:3004'
+  apiUrl = 'http://localhost:3004';
 
   getTegs(): Observable<TagInterface[]> {
     return this.httpClient.get<TagInterface[]>(`${this.apiUrl}/tags`);

@@ -1,6 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { ApiService } from "./api.service";
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { TagInterface } from "../types/tag.interface";
 
 describe('ApiService', () => {
   let apiService: ApiService;
@@ -28,7 +29,18 @@ describe('ApiService', () => {
 
   describe('getTegs', () => {
     it('should get tegs', () => {
+      const request = [
+        { id: '1', name: 'foo' },
+      ];
+      let tags: TagInterface[] | undefined;
+      apiService.getTegs().subscribe(response => {
+        tags = response;
+      });
 
+      const req = httpTestingController.expectOne('http://localhost:3004/tags');
+      req.flush(request);
+
+      expect(tags).toEqual(request);
     });
   });
 
