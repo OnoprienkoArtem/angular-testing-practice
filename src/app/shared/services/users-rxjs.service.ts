@@ -17,6 +17,4 @@ export class UsersRxJsService {
       .filter(user => userId !== user.id);
     this.users$.next(updatedUsers);
   }
-
-
 }
