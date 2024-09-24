@@ -41,6 +41,7 @@ describe('ApiService', () => {
       req.flush(response);
 
       expect(tags).toEqual(response);
+      expect(req.request.method).toEqual('GET');
     });
   });
 
@@ -56,6 +57,8 @@ describe('ApiService', () => {
       req.flush(response);
 
       expect(tag).toEqual(response);
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual({name: 'foo'});
     });
   });
 
