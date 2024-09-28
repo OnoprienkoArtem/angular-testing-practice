@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { TodoInterface } from "../types/todo.interface";
 import { FilterEnum } from "../types/filter.enum";
-import { forkJoin, Observable } from "rxjs";
+import { forkJoin } from "rxjs";
 
 @Injectable()
 export class TodosService {
