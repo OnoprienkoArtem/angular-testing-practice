@@ -54,7 +54,6 @@ describe('TodosService', () => {
 ;    });
   });
 
-
   describe('addTodo', () => {
     it('should create todo', () => {
       const response = { text: 'foo', isCompleted: true, id: '1'};
@@ -64,6 +63,66 @@ describe('TodosService', () => {
       request.flush(response);
 
       expect(todosService.todosSig()).toEqual([response]);
-;    });
+    });
+  });
+
+  describe('changeTodo', () => {
+    it('should updates a todo', () => {
+      const response = { text: 'bar', isCompleted: true, id: '1'};
+      todosService.todosSig.set([{ text: 'foo', isCompleted: true, id: '1' }]);
+
+      todosService.changeTodo('1', 'bar');
+
+      const request = httpTestingController.expectOne(`${apiBaseUrl}/1`);
+      request.flush(response);
+
+      expect(todosService.todosSig()).toEqual([response]);
+    });
+  });
+
+  describe('removeTodo', () => {
+    it('should remove a todo', () => {
+      todosService.todosSig.set([{ text: 'foo', isCompleted: true, id: '1' }]);
+      todosService.removeTodo('1');
+
+      const request = httpTestingController.expectOne(`${apiBaseUrl}/1`);
+      request.flush({});
+
+      expect(todosService.todosSig()).toEqual([]);
+    });
+  });
+
+  describe('toggleTodo', () => {
+    it('should toggles a todo', () => {
+      const response = { text: 'bar', isCompleted: true, id: '1'};
+      todosService.todosSig.set([{ text: 'foo', isCompleted: false, id: '1' }]);
+      todosService.toggleTodo('1');
+
+      const request = httpTestingController.expectOne(`${apiBaseUrl}/1`);
+      request.flush(response);
+
+      expect(todosService.todosSig()).toEqual([response]);
+    });
+  });
+
+  describe('toggleAll', () => {
+    it('should toggles all todo', () => {
+      todosService.todosSig.set([
+        { text: 'foo', isCompleted: false, id: '1' },
+        { text: 'bar', isCompleted: false, id: '2' },
+      ]);
+      todosService.toggleAll(true);
+
+      const requests = httpTestingController.match(request =>
+        request.url.includes(apiBaseUrl),
+      );
+      requests[0].flush({ text: 'foo', isCompleted: true, id: '1' });
+      requests[1].flush({ text: 'bar', isCompleted: true, id: '2' });
+
+      expect(todosService.todosSig()).toEqual([
+        { text: 'foo', isCompleted: true, id: '1' },
+        { text: 'bar', isCompleted: true, id: '2' },
+      ]);
+    });
   });
 });

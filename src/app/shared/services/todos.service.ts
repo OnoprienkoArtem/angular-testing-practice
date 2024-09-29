@@ -38,7 +38,7 @@ export class TodosService {
     });
   }
 
-  removedTodo(id: string): void {
+  removeTodo(id: string): void {
     this.httpClient.delete(`${this.apiBaseUrl}/${id}`).subscribe(() => {
       this.todosSig.update(todos => todos.filter(todo => todo.id !== id));
     });
