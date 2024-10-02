@@ -10,7 +10,7 @@ describe('PaginationComponent', () => {
 
   const mockUtilsService = {
     range: () => [1, 2, 3, 4, 5],
-  }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({

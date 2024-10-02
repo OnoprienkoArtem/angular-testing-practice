@@ -14,7 +14,7 @@ export class TodosService {
 
   apiBaseUrl = 'http://localhost:3004/todos';
 
-  changeFilters(filterName: FilterEnum): void {
+  changeFilter(filterName: FilterEnum): void {
     this.filterSig.set(filterName);
   }
 
