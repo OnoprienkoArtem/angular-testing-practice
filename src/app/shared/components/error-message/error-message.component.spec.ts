@@ -38,5 +38,4 @@ describe('ErrorMessageComponent', () => {
 
     expect(messageContainer.nativeElement.textContent).toBe('Email is already taken');
   });
-
 });
