@@ -13,6 +13,7 @@ describe('FooterComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FooterComponent, HttpClientTestingModule],
+      providers: [TodosService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FooterComponent);
