@@ -5,7 +5,7 @@ import { FilterEnum } from '../../types/filter.enum';
 import { TodoComponent } from '../todo/todo.component';
 
 @Component({
-  selector: 'app-todos-main',
+  selector: 'todos-main',
   templateUrl: './main.component.html',
   standalone: true,
   imports: [CommonModule, TodoComponent],

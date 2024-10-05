@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { TodosService } from '../../services/todos.service';
 
 @Component({
-  selector: 'app-todos-todo',
+  selector: 'todos-todo',
   templateUrl: './todo.component.html',
   standalone: true,
   imports: [CommonModule],
