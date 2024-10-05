@@ -45,7 +45,62 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('component visibility', () => {
+    it('should be hidden without todos', () => {
+      const main = fixture.debugElement.query(
+        By.css('[data-testid="main"]')
+      );
+      expect(main.classes['hidden']).toBeTruthy();
+    });
 
+    it('should be visible with todos', () => {
+      todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: false }]);
+      fixture.detectChanges();
+      const main = fixture.debugElement.query(
+        By.css('[data-testid="main"]')
+      );
+      expect(main.classes['hidden']).not.toBeDefined();
+    });
+  });
 
+  it('should highlight toggle all checkbox', () => {
+    todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: true }]);
+    fixture.detectChanges();
+    const toggleAll = fixture.debugElement.query(
+      By.css('[data-testid="toggleAll"]')
+    );
+    expect(toggleAll.nativeElement.checked).toBeTruthy();
+  });
 
+  it('should toggle all todos', () => {
+    jest.spyOn(todosService, 'toggleAll').mockImplementation(() => {});
+    todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: true }]);
+    fixture.detectChanges();
+    const toggleAll = fixture.debugElement.query(
+      By.css('[data-testid="toggleAll"]')
+    );
+    toggleAll.nativeElement.click();
+    expect(todosService.toggleAll).toHaveBeenCalledWith(false);
+  });
+
+  it('should render a list of todos', () => {
+    todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: false }]);
+    fixture.detectChanges();
+    const todos = fixture.debugElement.queryAll(
+      By.css('[data-testid="todo"]')
+    );
+    expect(todos.length).toBe(1);
+    expect(todos[0].componentInstance.todo).toEqual({ id: '1', text: 'foo', isCompleted: false });
+    expect(todos[0].componentInstance.isEditing).toEqual(false);
+  });
+
+  it('should change editingId', () => {
+    todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: false }]);
+    fixture.detectChanges();
+    const todos = fixture.debugElement.queryAll(
+      By.css('[data-testid="todo"]')
+    );
+    todos[0].componentInstance.setEditingId.emit('1');
+    expect(component.editingId).toBe('1');
+  });
 });
