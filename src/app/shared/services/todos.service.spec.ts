@@ -37,7 +37,7 @@ describe('TodosService', () => {
 
   describe('changeFilters', () => {
     it('should changes the filter', () => {
-      todosService.changeFilter(FilterEnum.active);
+      todosService.changeFilters(FilterEnum.active);
       expect(todosService.filterSig()).toEqual(FilterEnum.active);
     });
   });
