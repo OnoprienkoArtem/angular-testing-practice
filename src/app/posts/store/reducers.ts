@@ -1,5 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import * as PostsActions from "./actions";
+import { PostsStateInterface } from "../types/postsState.interface";
 
 export const initialState: PostsStateInterface = {
   isLoading: false,

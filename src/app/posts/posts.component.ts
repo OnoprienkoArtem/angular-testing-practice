@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { PostInterface } from './types/post.interface';
+import { selectError, selectIsLoading } from './store/reducers';
 
 @Component({
   selector: 'posts',
@@ -14,7 +16,7 @@ export class PostsComponent implements OnInit {
   error$: Observable<string | null>;
   posts$: Observable<PostInterface[]>;
 
-  constructor(private store: Store<AppStateInterface>) {
+  constructor(private store: Store<PostInterface>) {
     this.isLoading$ = this.store.pipe(select(selectIsLoading));
     this.error$ = this.store.pipe(select(selectError));
     this.posts$ = this.store.pipe(select(selectPosts));
