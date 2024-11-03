@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PostInterface } from './types/post.interface';
-import { selectError, selectIsLoading } from './store/reducers';
+import { selectError, selectIsLoading, selectPosts } from './store/reducers';
+import * as PostsActions from "./store/actions";
 
 @Component({
   selector: 'posts',
